@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Login</title>
+</h:head>
+<h:body>
+
+	<b:growl id="msg" placementFrom="top" placementAlign="center"
+			show-detail="false" globalOnly="true" show-summary="true"
+			allow-dismiss="true" newestOnTop="false"
+			animation-enter="animated bounceInDown"
+			animation-exit="animated flipOutX" escape="true" timer="5000"/>
+
+	<b:container id="container" fluid="true" style="width:50%;margin:auto;margin-top:15%;padding:2%;box-shadow: 1px 3px 15px rgba(0,0,0,0.5);">
+		<b:row>
+			<b:column>
+				<b:form id="loginForm">
+				
+					<h:outputLabel value="Entre com seu Login"/>
+					
+					<b:inputText id="usernameDiv"
+						name="j_username" value="#{loginControle.login.usuario}" label="Username">
+						<f:facet name="prepend">
+						<b:icon name="user" />
+						</f:facet>	
+					</b:inputText>
+
+					<b:inputSecret id="passwordDiv" 
+						name="j_password" value="#{loginControle.login.senha}" label="Password">
+						<f:facet name="prepend">
+						<b:iconAwesome name="key" /> 
+						</f:facet>	
+					</b:inputSecret>
+
+					<b:commandButton value="Login" action="#{loginControle.Validando()}" look="primary" style="float:right;width:20%"/>
+
+				</b:form>
+			</b:column>
+		</b:row>
+	</b:container>
+	
+</h:body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Cadastro de Treinos</title>
+</h:head>
+<h:body>
+
+	<b:growl id="msg" placementFrom="top" placementAlign="center"
+			show-detail="false" globalOnly="true" show-summary="true"
+			allow-dismiss="true" newestOnTop="false"
+			animation-enter="animated bounceInDown"
+			animation-exit="animated flipOutX" escape="true" timer="5000"/>
+
+	<b:navBar brand="Personal Trainer Online" brandHref="menu.xhtml">
+		<b:navbarLinks>
+			<b:dropMenu value="Aluno">
+				<b:navLink value="Cadastrar Aluno" href="cadastro.xhtml"></b:navLink>
+				<b:navLink value="Consultar Aluno" href="menu.xhtml"></b:navLink>
+			</b:dropMenu>
+
+			<b:dropMenu value="Treinos">
+				<b:navLink value="Cadastrar Treino" href="cadastrarTreinos.xhtml"></b:navLink>
+				<b:navLink value="Consultar Treino" href="consultar-treino.xhtml"></b:navLink>
+			</b:dropMenu>
+
+			<b:dropMenu value="Agendamento">
+				<b:navLink value="Cadastrar Agenda" href="cadastroAgenda.xhtml"></b:navLink>
+				<b:navLink value="Consultar Agenda" href="consultar-agenda.xhtml"></b:navLink>
+			</b:dropMenu>
+		</b:navbarLinks>
+
+		<b:navbarLinks pull="right">
+			<h:form prependId="false" id="FRMDeslogar">
+				<b:commandButton value="Deslogar"
+					actionListener="#{loginControle.deslogar()}" style="margin-top:8px"></b:commandButton>
+			</h:form>
+		</b:navbarLinks>
+	</b:navBar>
+	<b:container>
+		<h:form prependId="false" id="FrmAluno">
+		
+			<b:row>
+				<b:column>
+					<h1>Dados do Treino do Aluno</h1>
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column>
+					<b:label value="Nome do Aluno:" severity="info" />
+					<b:selectOneMenu value="#{treinoControle.treinoModal.alunos_id_alunos}" update=":FrmAluno">
+						<f:selectItem itemLabel="Selecione o Aluno" />
+						<f:selectItems value="#{alunoControle.listaAluno}" var="aluno"
+							itemLabel="#{aluno.nome}" itemValue="#{aluno.id}"/>
+					</b:selectOneMenu>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column>
+					<p>Treino de Coxa e Glúteus</p>
+					<hr style="margin-top:-7px"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="6">
+					<b:label value="Nome do excercício" severity="info"/>
+					<b:selectOneMenu value="#{treinoControle.treinoModal.coxas_exer}">
+						<f:selectItem itemLabel="Selecione o Execicio" itemValue="" />
+						<f:selectItem itemLabel="Agachamento" itemValue="Agachamento" />
+						<f:selectItem itemLabel="Banco Flexor" itemValue="Flexor" />
+						<f:selectItem itemLabel="Banco Adutor" itemValue="Adutor" />
+						<f:selectItem itemLabel="Banco Abdutor" itemValue="Abdutor" />
+						<f:selectItem itemLabel="A Fundo" itemValue="Fundo" />
+					</b:selectOneMenu>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Séries" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.coxas_series}"/>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Repetição" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.coxas_repe}"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column>
+					<h3>Treino de Bíceps</h3>
+					<hr style="margin-top:-7px"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="6">
+					<b:label value="Nome do excercício" severity="info"/>
+					<b:selectOneMenu value="#{treinoControle.treinoModal.biceps_exer}">
+						<f:selectItem itemLabel="Selecione o Execicio" itemValue="" />
+						<f:selectItem itemLabel="Rosca Direta" itemValue="RoscaDireta" />
+						<f:selectItem itemLabel="Rosca Alternadar" itemValue="RoscaAlternada" />
+						<f:selectItem itemLabel="Rosca 21" itemValue="Rosca21" />
+						<f:selectItem itemLabel="Rosca com Halteres" itemValue="RoscaHalteres" />
+						<f:selectItem itemLabel="Rosca Hamer" itemValue="RoscaHamer" />
+					</b:selectOneMenu>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Séries" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.biceps_series}"/>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Repetição" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.biceps_repe}"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column>
+					<h3>Treino de Ombros</h3>
+					<hr style="margin-top:-7px"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="6">
+					<b:label value="Nome do excercício" severity="info"/>
+					<b:selectOneMenu value="#{treinoControle.treinoModal.ombro_exer}">
+						<f:selectItem itemLabel="Selecione o Execicio" itemValue="" />
+						<f:selectItem itemLabel="Desenvolvimento Posterior" itemValue="DesenvolvimentoPosterior" />
+						<f:selectItem itemLabel="Desenvolvimento Anterior" itemValue="DesenvolvimentoAnterior" />
+						<f:selectItem itemLabel="Desenvolvimento com Halteres" itemValue="DesenvolvimentoHalteres" />
+						<f:selectItem itemLabel="Desenvolvimento Frontal com Rotação" itemValue="DesenvolvimentoFrontal" />
+						<f:selectItem itemLabel="Abdução Ombro Profundo" itemValue="AbduçãoOmbro" />
+					</b:selectOneMenu>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Séries" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.ombro_series}"/>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Repetição" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.ombro_repe}"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column>
+					<h3>Treino de Panturrilha</h3>
+					<hr style="margin-top:-7px"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="6">
+					<b:label value="Nome do excercício" severity="info"/>
+					<b:selectOneMenu value="#{treinoControle.treinoModal.panturrilha_exer}">
+						<f:selectItem itemLabel="Selecione o Execicio" itemValue="" />
+						<f:selectItem itemLabel="Panturrilha Livre" itemValue="PanturrilhaLivre" />
+						<f:selectItem itemLabel="Panturrilha Livre Unilateral" itemValue="PanturrilhaUnilateral" />
+						<f:selectItem itemLabel="Panturrilha Leg. 45°" itemValue="PanturrilhaLeg" />
+						<f:selectItem itemLabel="Panturrilha em Pé no Aparelho" itemValue="PanturrilhaPe" />
+					</b:selectOneMenu>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Séries" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.panturrilha_series}"/>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Repetição" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.panturrilha_repe}"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column>
+					<h3>Treino do Ante-Braço</h3>
+					<hr style="margin-top:-7px"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="6">
+					<b:label value="Nome do excercício" severity="info"/>
+					<b:selectOneMenu value="#{treinoControle.treinoModal.ante_exer}">
+						<f:selectItem itemLabel="Selecione o Execicio" itemValue="" />
+						<f:selectItem itemLabel="Rosca Punho Direto" itemValue="RoscaPunhoDireto" />
+						<f:selectItem itemLabel="Rosca Inversa" itemValue="RoscaInversa" />
+						<f:selectItem itemLabel="Rotação de Punho" itemValue="RotaçãoPunho" />
+					</b:selectOneMenu>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Séries" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.ante_serie}"/>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Repetição" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.ante_repe}"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column>
+					<h3>Treino do Trapézio</h3>
+					<hr style="margin-top:-7px"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="6">
+					<b:label value="Nome do excercício" severity="info"/>
+					<b:selectOneMenu value="#{treinoControle.treinoModal.trapezio_exer}">
+						<f:selectItem itemLabel="Selecione o Execicio" itemValue="" />
+						<f:selectItem itemLabel="Remada Alta" itemValue="RemadaAlta" />
+						<f:selectItem itemLabel="Emcoclhimento Ombro" itemValue="EmcoclimentoOmbro" />
+						<f:selectItem itemLabel="Emcoclimento Ombro com Rotaçao" itemValue="EmcoclimentoOmbroRotacao" />
+					</b:selectOneMenu>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Séries" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.trapazio_serie}"/>
+				</b:column>
+				
+				<b:column span="3">
+					<b:label value="Repetição" severity="info"/>
+					<b:inputText mask="numeric" value="#{treinoControle.treinoModal.trapezio_repe}"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="12">
+					<b:label value="Observação Sobre o Treino" severity="info"/>
+					<b:inputText value="#{treinoControle.treinoModal.obs}"/>
+				</b:column>
+			</b:row>;
+
+			<b:row>
+				<b:column span="8" col-xs="6">
+					<b:button value="Voltar" outcome="consultar-treino" />
+				</b:column>
+
+				<b:column span="4" col-xs="6">
+					<b:commandButton icon="edit" value="Cadastrar Treino"
+						look="primary" ajax="true"
+						oncomplete="$('#EditarSenha').modal('show')" style="width:100%" />
+				</b:column>
+
+			</b:row>
+
+			<b:modal closable="true" id="EditarSenha" title="ATENÇÃO"
+				headerClass="headerModal" styleClass="modal modalCenter">
+				<p style="text-align: center; font-size: 20px;">
+					<b:iconAwesome name="check" size="3x" style="color:green"></b:iconAwesome>
+					Você tem certeza que quer Cadastrar esse Treino
+				</p>
+				<f:facet name="footer">
+					<b:row>
+						<b:column span="3" offset="3" col-sm="6" col-lg="3" col-xs="6">
+							<b:button value="Cancelar" dismiss="modal" look="danger" />
+						</b:column>
+
+						<b:column span="2" col-sm="2" col-lg="2" col-xs="2">
+							<b:commandButton value="Confirmar" look="primary" dismiss="modal" action="#{treinoControle.salvar()}" />
+						</b:column>
+					</b:row>
+				</f:facet>
+			</b:modal>
+		</h:form>
+	</b:container>
+</h:body>
+</html>

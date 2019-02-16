@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Consultar Agenda</title>
+</h:head>
+<h:body>
+	
+	<b:growl id="msg" placementFrom="top" placementAlign="center"
+			show-detail="false" globalOnly="true" show-summary="true"
+			allow-dismiss="true" newestOnTop="false"
+			animation-enter="animated bounceInDown"
+			animation-exit="animated flipOutX" escape="true" timer="5000"/>
+
+	<b:navBar brand="Personal Trainer Online" brandHref="menu.xhtml">
+		<b:navbarLinks>
+			<b:dropMenu value="Aluno">
+				<b:navLink value="Cadastrar Aluno" href="cadastro.xhtml"></b:navLink>
+				<b:navLink value="Consultar Aluno" href="menu.xhtml"></b:navLink>
+			</b:dropMenu>
+
+			<b:dropMenu value="Treinos">
+				<b:navLink value="Cadastrar Treino" href="cadastrarTreinos.xhtml"></b:navLink>
+				<b:navLink value="Consultar Treino" href="consultar-treino.xhtml"></b:navLink>
+			</b:dropMenu>
+
+			<b:dropMenu value="Agendamento">
+				<b:navLink value="Cadastrar Agenda" href="cadastroAgenda.xhtml"></b:navLink>
+				<b:navLink value="Consultar Agenda" href="consultar-agenda.xhtml"></b:navLink>
+			</b:dropMenu>
+		</b:navbarLinks>
+
+		<b:navbarLinks pull="right">
+			<h:form prependId="false" id="FRMDeslogar">
+				<b:commandButton value="Deslogar"
+					actionListener="#{loginControle.deslogar()}" style="margin-top:8px"></b:commandButton>
+			</h:form>
+		</b:navbarLinks>
+	</b:navBar>
+	<b:container>
+		<h:form prependId="false" id="FrmConsultarAgenda">
+
+			<b:row>
+				<b:column>
+					<h2>Consultar Agenda</h2>
+					<hr style="margin-top: -1px;" />
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:panel>
+					<b:dataTable id="tblAlunos" value="#{agendaControle.itens}"
+						var="item" responsive="true" paginated="true" ajax="true"
+						pdf="true">
+
+						<b:dataTableColumn>
+							<f:facet name="header">ID Treino</f:facet>
+							<h:outputText value="#{item.id_agenda}" />
+						</b:dataTableColumn>
+
+						<b:dataTableColumn>
+							<f:facet name="header">NOME ALUNO</f:facet>
+							<h:outputText value="#{item.nome_Aluno}" />
+						</b:dataTableColumn>
+
+						<b:dataTableColumn>
+							<f:facet name="header">Data</f:facet>
+							<h:outputText value="#{item.dataAgenda}" />
+						</b:dataTableColumn>
+
+						<b:dataTableColumn>
+							<f:facet name="header">OPÇÕES</f:facet>
+
+							<b:commandButton iconAwesome="edit" look="warning" ajax="true"
+								oncomplete="$('#EditarAgenda').modal('show')" actionListener="#{agendaControle.preparaEdicao()}"
+								style="margin-right:5px" update=":msg:FrmConsultarAgenda:EditarAgenda" />
+
+							<b:commandButton iconAwesome="times" look="danger" ajax="true"
+								oncomplete="$('#ExcluirAgenda').modal('show')" actionListener="#{agendaControle.prepararExclursao()}"
+								update=":msg:FrmConsultarAgenda:ExcluirAgenda" />
+
+						</b:dataTableColumn>
+					</b:dataTable>
+				</b:panel>
+			</b:row>
+
+			<b:modal closable="true" id="ExcluirAgenda" title="Excluir Treino"
+				headerClass="headerModal" styleClass="modal modalCenter">
+				<h4 style="text-align: center; font-size: 20px;">
+					<b:iconAwesome name="close" size="3x" style="color:red"></b:iconAwesome>
+					Excluir Agendamento!
+				</h4>
+				<f:facet name="footer">
+					<b:row>
+						<b:column span="3" offset="3" col-sm="6" col-lg="3" col-xs="6">
+							<b:commandButton actionListener="#{agendaControle.deletar}"
+								value="Confirmar" look="primary" dismiss="modal" />
+						</b:column>
+
+						<b:column span="2" col-sm="2" col-lg="2" col-xs="2">
+							<b:button value="Cancelar" dismiss="modal" look="danger" />
+						</b:column>
+					</b:row>
+				</f:facet>
+			</b:modal>
+
+			<b:modal closable="true" id="EditarAgenda" title="Editar Treino"
+				headerClass="headerModal" styleClass="modal modalCenter">
+				
+				<b:row>
+					<b:column>
+						<b:label value="Nome do Aluno"/>
+						<b:inputText value="#{agendaControle.agendaModal.nome_Aluno}" disabled="true"/>
+					</b:column>
+					
+					<b:column>
+						<b:label value="Data"/>
+						<b:dateTimePicker format="DD/MM/YYYY" mode="popup-icon" value="#{agendaControle.agendaModal.data}"></b:dateTimePicker>
+					</b:column>
+				</b:row>
+
+				<f:facet name="footer">
+					<b:row>
+						<b:column span="3" offset="3" col-sm="6" col-lg="3" col-xs="6">
+							<b:commandButton actionListener="#{agendaControle.editar()}"
+								value="Confirmar" look="primary" dismiss="modal" />
+						</b:column>
+
+						<b:column span="2" col-sm="2" col-lg="2" col-xs="2">
+							<b:button value="Cancelar" dismiss="modal" look="danger" />
+						</b:column>
+					</b:row>
+				</f:facet>
+			</b:modal>
+
+		</h:form>
+	</b:container>
+</h:body>
+</html>

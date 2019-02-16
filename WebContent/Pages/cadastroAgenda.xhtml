@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastro da Agenda do Treino</title>
+</h:head>
+<h:body>
+	
+	<b:growl id="msg" placementFrom="top" placementAlign="center"
+			show-detail="false" globalOnly="true" show-summary="true"
+			allow-dismiss="true" newestOnTop="false"
+			animation-enter="animated bounceInDown"
+			animation-exit="animated flipOutX" escape="true" timer="5000"/>
+	
+	<b:navBar brand="Personal Trainer Online" brandHref="menu.xhtml">
+		<b:navbarLinks>
+			<b:dropMenu value="Aluno">
+				<b:navLink value="Cadastrar Aluno" href="cadastro.xhtml"></b:navLink>
+				<b:navLink value="Consultar Aluno" href="menu.xhtml"></b:navLink>
+			</b:dropMenu>
+
+			<b:dropMenu value="Treinos">
+				<b:navLink value="Cadastrar Treino" href="cadastrarTreinos.xhtml"></b:navLink>
+				<b:navLink value="Consultar Treino" href="consultar-treino.xhtml"></b:navLink>
+			</b:dropMenu>
+
+			<b:dropMenu value="Agendamento">
+				<b:navLink value="Cadastrar Agenda" href="cadastroAgenda.xhtml"></b:navLink>
+				<b:navLink value="Consultar Agenda" href="consultar-agenda.xhtml"></b:navLink>
+			</b:dropMenu>
+		</b:navbarLinks>
+
+		<b:navbarLinks pull="right">
+			<h:form prependId="false" id="FRMDeslogar">
+				<b:commandButton value="Deslogar"
+					actionListener="#{loginControle.deslogar()}" style="margin-top:8px"></b:commandButton>
+			</h:form>
+		</b:navbarLinks>
+	</b:navBar>
+
+	<b:container>
+		<h:form prependId="false" id="FrmAgenda">
+			<b:row>
+				<b:column>
+					<h3>Agenda de Treinos</h3>
+					<hr style="margin-top: -5px;" />
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column>
+					<b:label value="Nome do Aluno" />
+					<b:selectOneMenu value="#{agendaControle.agendaModal.nome_Aluno}"
+						update=":FrmAgenda">
+						<f:selectItem itemLabel="Selecione o Aluno" />
+						<f:selectItems value="#{alunoControle.listaAluno}" var="aluno"
+							itemLabel="#{aluno.nome}" itemValue="#{aluno.nome}" />
+					</b:selectOneMenu>
+				</b:column>
+
+				<b:column>
+					<b:label value="Data" />
+					<b:dateTimePicker format="DD/MM/YYYY" mode="popup-icon"
+						value="#{agendaControle.agendaModal.data}"></b:dateTimePicker>
+				</b:column>
+			</b:row>
+
+			<b:row style="margin-top:15px;">
+				<b:column span="8" col-xs="6">
+					<b:button value="Voltar" outcome="consultar-agenda" />
+				</b:column>
+
+				<b:column span="4" col-xs="6">
+					<b:commandButton value="Salvar" iconAwesome="plus" ajax="true"
+						style="width:100%" look="primary"
+						oncomplete="$('#Agenda').modal('show')" />
+				</b:column>
+			</b:row>
+
+
+			<b:modal closable="true" id="Agenda" title="Agendar Treino"
+				headerClass="headerModal" styleClass="modal modalCenter">
+				<h4>
+					<b:iconAwesome name="check" size="3x" style="color:green"></b:iconAwesome>
+					Salvar Agendamento!
+				</h4>
+				<f:facet name="footer">
+					<b:row>
+						<b:column span="3" offset="3" col-sm="6" col-lg="3" col-xs="6">
+							<b:commandButton actionListener="#{agendaControle.salvar()}"
+								value="Confirmar" look="primary" dismiss="modal" />
+						</b:column>
+
+						<b:column span="2" col-sm="2" col-lg="2" col-xs="2">
+							<b:button value="Cancelar" dismiss="modal" look="danger"
+								outcome="consultar-agenda" />
+						</b:column>
+					</b:row>
+				</f:facet>
+			</b:modal>
+
+		</h:form>
+	</b:container>
+</h:body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Cadastro de Aluno</title>
+</h:head>
+<h:body>
+	
+	<b:growl id="msg" placementFrom="top" placementAlign="center"
+			show-detail="false" globalOnly="true" show-summary="true"
+			allow-dismiss="true" newestOnTop="false"
+			animation-enter="animated bounceInDown"
+			animation-exit="animated flipOutX" escape="true" timer="5000"/>
+	
+	<b:navBar brand="Personal Trainer Online" brandHref="menu.xhtml">
+		<b:navbarLinks>
+			<b:dropMenu value="Aluno">
+				<b:navLink value="Cadastrar Aluno" href="cadastro.xhtml"></b:navLink>
+				<b:navLink value="Consultar Aluno" href="menu.xhtml"></b:navLink>
+			</b:dropMenu>
+			
+			<b:dropMenu value="Treinos">
+				<b:navLink value="Cadastrar Treino" href="cadastrarTreinos.xhtml"></b:navLink>
+				<b:navLink value="Consultar Treino" href="consultar-treino.xhtml"></b:navLink>
+			</b:dropMenu>
+			
+			<b:dropMenu value="Agendamento">
+				<b:navLink value="Cadastrar Agenda" href="cadastroAgenda.xhtml"></b:navLink>
+				<b:navLink value="Consultar Agenda" href="consultar-agenda.xhtml"></b:navLink>
+			</b:dropMenu>
+		</b:navbarLinks>
+
+		<b:navbarLinks pull="right">
+			<h:form prependId="false" id="FRMDeslogar">
+				<b:commandButton value="Deslogar"
+					actionListener="#{loginControle.deslogar()}" style="margin-top:8px"></b:commandButton>
+			</h:form>
+		</b:navbarLinks>
+	</b:navBar>
+	<b:container>
+		<h:form prependId="false" id="FrmAluno">
+
+			<b:row>
+				<b:column>
+					<h1>Dados do Cadastro do Aluno</h1>
+					<hr style="margin-top:-1px;"/>
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column span="4">
+					<b:label value="Nome do Aluno" severity="info" />
+					<b:inputText value="#{alunoControle.cadastroAluno.nome}"
+						required="true" />
+				</b:column>
+
+				<b:column span="4">
+					<b:label value="CPF do Aluno" severity="info" />
+					<b:inputText value="#{alunoControle.cadastroAluno.cpf}"
+						mask="999.999.999-99" required="true" />
+				</b:column>
+
+				<b:column span="4">
+					<b:label value="RG do Aluno" severity="info" />
+					<b:inputText value="#{alunoControle.cadastroAluno.rg}"
+						required="true" />
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column span="4">
+					<b:label value="Sexo" severity="info" />
+					<b:selectOneMenu value="#{alunoControle.cadastroAluno.sexo}">
+						<f:selectItem itemLabel="-Selecione o sexo-" itemValue="" />
+						<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+						<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+						<f:selectItem itemLabel="Outro" itemValue="Outro" />
+					</b:selectOneMenu>
+				</b:column>
+
+				<b:column span="4">
+					<b:label value="Data de Nascimento" severity="info" />
+					<b:dateTimePicker showTime="false" showButtonPanel="true"
+						use-current="false" required="true"
+						value="#{alunoControle.cadastroAluno.data}" mode="popup-icon">
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+						</b:dateTimePicker>
+				</b:column>
+
+				<b:column span="4">
+					<b:label value="Cor" severity="info" />
+					<b:selectOneMenu value="#{alunoControle.cadastroAluno.cor}">
+						<f:selectItem itemLabel="-Selecione a Cor-" itemValue="" />
+						<f:selectItem itemLabel="Amarelo" itemValue="Amarelo" />
+						<f:selectItem itemLabel="Branco" itemValue="Branco" />
+						<f:selectItem itemLabel="Indigena" itemValue="Indigena" />
+						<f:selectItem itemLabel="Pardo" itemValue="Pardo" />
+						<f:selectItem itemLabel="Preto" itemValue="Preto" />
+					</b:selectOneMenu>
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column span="4">
+					<b:label value="Peso do Aluno (em Kg)" severity="info" />
+					<b:inputText mask="999" required="true"
+						value="#{alunoControle.cadastroAluno.peso}" />
+				</b:column>
+
+				<b:column span="4">
+					<b:label value="Altura do Aluno" severity="info" />
+					<b:inputText mask="999cm" required="true"
+						value="#{alunoControle.cadastroAluno.altura}" />
+				</b:column>
+
+				<b:column span="4">
+					<b:label value="Percentual de Gordura" severity="info" />
+					<b:inputText value="#{alunoControle.cadastroAluno.gordura}"
+						mask="99%" required="true" />
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column span="4">
+					<b:label value="Tipo Sanguineo" severity="info" />
+					<b:selectOneMenu value="#{alunoControle.cadastroAluno.sanguinio}">
+						<f:selectItem itemLabel="-Selecione o Tipo Sanguineo-"
+							itemValue="" />
+						<f:selectItem itemLabel="A+" itemValue="A+" />
+						<f:selectItem itemLabel="A-" itemValue="A-" />
+						<f:selectItem itemLabel="B+" itemValue="B+" />
+						<f:selectItem itemLabel="B-" itemValue="B-" />
+						<f:selectItem itemLabel="O+" itemValue="O+" />
+						<f:selectItem itemLabel="O-" itemValue="O-" />
+						<f:selectItem itemLabel="AB+" itemValue="AB+" />
+						<f:selectItem itemLabel="AB-" itemValue="AB-" />
+					</b:selectOneMenu>
+				</b:column>
+
+				<b:column span="8">
+					<b:label value="Objetivo Treino" severity="info" />
+					<b:selectOneMenu value="#{alunoControle.cadastroAluno.motivo}">
+						<f:selectItem itemLabel="-Selecione o Objetivo do Treino"
+							itemValue="" />
+						<f:selectItem itemLabel="Ganho de Massa Muscular"
+							itemValue="Ganho de Massa Muscular" />
+						<f:selectItem itemLabel="Perda de Peso" itemValue="Perda de Peso" />
+						<f:selectItem itemLabel="Condicionamento Fisico"
+							itemValue="Condicionamento Fisico" />
+					</b:selectOneMenu>
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column span="8" col-xs="6">
+					<b:button value="Voltar" outcome="menu" />
+				</b:column>
+
+				<b:column span="4" col-xs="6">
+					<b:commandButton icon="edit" value="Cadastrar Aluno" look="primary"
+						ajax="true"	oncomplete="$('#EditarSenha').modal('show')" style="width:100%"/>
+				</b:column>
+
+			</b:row>
+
+			<b:modal closable="true" id="EditarSenha" title="ATENÇÃO"
+				headerClass="headerModal" styleClass="modal modalCenter">
+				<p style="text-align: center; font-size: 20px;">
+				<b:iconAwesome name="check" size="3x" style="color:green"></b:iconAwesome>
+				Você tem certeza que quer Cadastrar esse Aluno</p>
+				<f:facet name="footer">
+					<b:row>
+						<b:column span="3" offset="3" col-sm="6" col-lg="3" col-xs="6">
+							<b:button value="Cancelar" dismiss="modal" look="danger"/>
+						</b:column>
+						
+						<b:column span="2" col-sm="2" col-lg="2" col-xs="2">
+							<b:commandButton value="Confirmar"
+								action="#{alunoControle.salvar()}" look="primary"
+								dismiss="modal"/>
+						</b:column>
+					</b:row>
+				</f:facet>
+			</b:modal>
+
+		</h:form>
+	</b:container>
+</h:body>
+</html>
